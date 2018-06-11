@@ -1,9 +1,9 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
-	<h:form prependId="false">
-		<p:panel style="margin-top:10px">
 
-			<p:outputLabel value="Search Result" />
+	<h:form prependId="false">
+		<p:fieldset legend="Search Result" style="margin-bottom:20px">
+
 
 			<p:dataTable styleClass="borderless-data-tablex" value="#{employeeView.employees}" var="item"
 				id="search_result_table" widgetVar="search_result_table" paginator="true" rows="15" rowsPerPageTemplate="5,10,15"
@@ -30,8 +30,8 @@
 				</p:column>
 
 				<p:column headerText="Action">
-					<p:commandLink actionListener="#{employeeView.showViewEmployeeActionListener(item.id)}"
-						update="dlg-view-employee" title="View Employee Details">
+					<p:commandLink actionListener="#{employeeView.showViewEmployeeActionListener(item.id)}" update="dlg-view-employee"
+						title="View Employee Details">
 						<i class="fa fa-folder-open-o" />
 					</p:commandLink>
 
@@ -45,6 +45,6 @@
 				</p:column>
 
 			</p:dataTable>
-		</p:panel>
+		</p:fieldset>
 	</h:form>
 </ui:composition>

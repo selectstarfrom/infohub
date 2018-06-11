@@ -1,7 +1,6 @@
 package com.demo.infohub.webapp.managedbeans;
 
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -12,6 +11,7 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.demo.infohub.serviceapi.api.NationalityList;
 import com.demo.infohub.serviceapi.dto.AddressDTO;
 import com.demo.infohub.serviceapi.dto.EmployeeDTO;
 import com.demo.infohub.serviceimpl.services.EmployeeServiceImpl;
@@ -28,17 +28,6 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 	private EmployeeDTO employee;
 	private EmployeeDTO selectedEmployee;
 	private EmployeeDataModel employees;
-
-	// @formatter:off
-	private List<String> nations = Arrays.asList(
-			"Australia",
-			"Bangladesh",
-			"Canada",
-			"Denmark",
-			"Egypt",
-			"Finland"
-			);
-	// @formatter:on
 
 	@Autowired
 	private EmployeeServiceImpl employeeService;
@@ -154,11 +143,7 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 	}
 
 	public List<String> getNations() {
-		return nations;
-	}
-
-	public void setNations(List<String> nations) {
-		this.nations = nations;
+		return NationalityList.ALL;
 	}
 
 }
