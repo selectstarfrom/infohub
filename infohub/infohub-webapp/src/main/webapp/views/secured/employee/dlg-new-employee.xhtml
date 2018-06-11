@@ -1,0 +1,45 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog id="dlg-new-employee" widgetVar="dlg-new-employee" modal="true" responsive="true"
+		styleClass="ui-sm-12 ui-md-12 ui-g-6 ui-lg-6" resizable="false" width="400" header="New Employee" dynamic="true"
+		closable="true">
+		<p:ajax event="open" listener="#{employeeView.showNewEmployeeActionListener}" update="pnl-new-employee" />
+		<h:form prependId="false">
+
+
+			<div class="ui-fluid">
+				<p:panelGrid id="pnl-new-employee" columns="2" columnClasses="ui-grid-col-4,ui-grid-col-10" layout="grid"
+					styleClass="ui-panelgrid-blank">
+
+
+					<h:outputLabel for="new_name" value="Name:" />
+					<p:inputText id="new_name" value="#{employeeView.employee.name}" title="Employee Name" />
+
+					<h:outputLabel for="new_email" value="Email" />
+					<p:inputText id="new_email" value="#{employeeView.employee.email}" title="Employee Email"
+						requiredMessage="Please enter your email address." validatorMessage="Invalid email format">
+						<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+					</p:inputText>
+
+					<h:outputLabel for="new_mobile" value="Mobile:" />
+					<p:inputText id="new_mobile" value="#{employeeView.employee.mobile}" title="Employee Mobile No." />
+
+					<h:outputLabel for="new_nationality" value="Nationality" />
+					<p:selectOneMenu id="new_nationality" value="#{employeeView.employee.nationality}" panelStyle="width:180px"
+						effect="fade" filter="true" filterMatchMode="startsWith" title="Employee Nationality">
+						<f:selectItems value="#{employeeView.nations}" />
+					</p:selectOneMenu>
+
+					<p:commandButton style="width:100px" value="Search" update="growl, search_result_table"
+						action="#{employeeView.saveEmployee}" />
+
+					<p:commandButton style="width:100px" value="Cancel" update="growl, search_result_table"
+						action="#{employeeView.closeEmployee}" />
+
+
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</p:dialog>
+</ui:composition>

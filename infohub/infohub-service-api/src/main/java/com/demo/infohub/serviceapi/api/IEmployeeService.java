@@ -8,8 +8,6 @@ public interface IEmployeeService {
 
 	EmployeeDTO saveEmployee(EmployeeDTO pEmployeeDTO);
 
-	int updateEmployee(EmployeeDTO pEmployeeDTO);
-
 	int deleteEmployee(Long pEmployeeId);
 
 	EmployeeDTO getEmployeeById(Long pEmployeeId);
@@ -17,5 +15,7 @@ public interface IEmployeeService {
 	List<EmployeeDTO> getEmployeeByName(String pEmployeeName);
 
 	List<EmployeeDTO> getEmployeeByNationality(String pEmployeeNationality);
+
+	List<EmployeeDTO> getAll();
 
 }

@@ -11,16 +11,18 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.ServletContext;
 
+import org.primefaces.context.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.demo.infohub.serviceapi.dto.AddressDTO;
 import com.demo.infohub.serviceapi.dto.EmployeeDTO;
 import com.demo.infohub.serviceimpl.services.EmployeeServiceImpl;
 import com.demo.infohub.webapp.selectablemodels.EmployeeDataModel;
 
 @ManagedBean(name = "employeeView")
 @ViewScoped
-public class EmployeeView implements Serializable {
+public class EmployeeView extends AbstractBaseBean implements Serializable {
 
 	private static final long serialVersionUID = 8816016836035127826L;
 
@@ -46,27 +48,40 @@ public class EmployeeView implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		ServletContext servletContext = (ServletContext) externalContext.getContext();
-		WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext).getAutowireCapableBeanFactory()
-				.autowireBean(this);
+		super.init();
 	}
 
 	public void initialize() {
-		this.employee = new EmployeeDTO();
+		this.employee = newEmployeeInstance();
 	}
 
 	private EmployeeDTO newEmployeeInstance() {
-		return new EmployeeDTO();
+		EmployeeDTO lEmployeeDTO = new EmployeeDTO();
+		lEmployeeDTO.setAddress(new AddressDTO());
+		return lEmployeeDTO;
 	}
 
 	public void saveEmployee() {
+		try {
+			employee = employeeService.saveEmployee(employee);
+		} catch (Exception e) {
+			error("Error occurred while Employee details. Please contact admin.", "pg-root-msg");
+		}
 
-		employee = employeeService.saveEmployee(employee);
+		RequestContext context = RequestContext.getCurrentInstance();
+		context.execute("PF('dlg-new-employee').hide();");
+		info("Employee details saved Successfully.", "pg-root-msg");
 
 	}
 
+	public void showNewEmployeeActionListener() {
+		this.employee = newEmployeeInstance();
+	}
+
 	public void seacrhEmployee() {
+
+		List<EmployeeDTO> lAllEmployees = employeeService.getAll();
+		employees = new EmployeeDataModel(lAllEmployees);
 
 	}
 

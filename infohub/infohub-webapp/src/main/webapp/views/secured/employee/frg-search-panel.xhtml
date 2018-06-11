@@ -18,11 +18,11 @@
 
 		<p:outputLabel value="Search" />
 
-		<h:form>
+		<h:form prependId="false">
 
 
 			<div class="ui-fluid">
-				<p:panelGrid columns="3" columnClasses="ui-grid-col-3,ui-grid-col-3,ui-grid-col-2" layout="grid"
+				<p:panelGrid columns="4" columnClasses="ui-grid-col-3,ui-grid-col-3,ui-grid-col-2,ui-grid-col-2" layout="grid"
 					styleClass="ui-panelgrid-blank">
 
 					<h:panelGroup>
@@ -39,7 +39,12 @@
 					</h:panelGroup>
 
 					<h:panelGroup>
-						<p:commandButton value="Search" update="growl" action="#{employeeView.save}" style="margin-top:15px" />
+						<p:commandButton value="Search" update="growl, search_result_table" action="#{employeeView.seacrhEmployee}"
+							style="margin-top:15px" />
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<p:commandButton value="New" onclick="PF('dlg-new-employee').show()" style="margin-top:15px" />
 					</h:panelGroup>
 
 				</p:panelGrid>

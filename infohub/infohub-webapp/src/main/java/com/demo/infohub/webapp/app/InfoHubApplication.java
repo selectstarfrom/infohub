@@ -29,6 +29,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.web.context.ServletContextAware;
 
 import com.demo.infohub.serviceimpl.config.ServiceConfiguration;
@@ -38,6 +39,7 @@ import com.sun.faces.config.FacesInitializer;
 @Configuration
 @ComponentScan(basePackages = "com.demo.infohub")
 @EnableAutoConfiguration
+@EnableJpaRepositories
 @Import({ ServiceConfiguration.class })
 public class InfoHubApplication extends SpringBootServletInitializer implements ServletContextAware {
 
