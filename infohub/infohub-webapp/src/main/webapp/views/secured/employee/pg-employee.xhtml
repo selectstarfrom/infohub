@@ -1,0 +1,17 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template.xhtml">
+
+	<ui:define name="content">
+		<p:messages autoUpdate="false" showDetail="true" id="pg-root-msg" closable="true" showSummary="false" />
+		<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+		<p:panel header="Employee" style="margin: 0 auto; margin-top:25px;">
+			<ui:include src="frg-search-panel.xhtml" />
+			<ui:include src="frg-search-result.xhtml" />
+			<ui:include src="dlg-employee-details.xhtml" />
+			<ui:include src="dlg-delete-employee.xhtml" />
+		</p:panel>
+
+	</ui:define>
+
+</ui:composition>

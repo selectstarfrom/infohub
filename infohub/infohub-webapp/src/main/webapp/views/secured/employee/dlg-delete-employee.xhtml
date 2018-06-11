@@ -1,0 +1,32 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog id="dlg-delete-employee" widgetVar="dlg-delete-employee" modal="true" responsive="true"
+		styleClass="ui-sm-12 ui-md-12 ui-g-6 ui-lg-6" resizable="false" width="400" header="Delete Employee" dynamic="true"
+		closable="true">
+		<p:ajax event="open" update="pnl-employee-details" />
+		<h:form prependId="false">
+
+
+			<div class="ui-fluid">
+
+				<p:panelGrid id="pnl-delete-employee" columns="1" columnClasses="ui-grid-col-12" layout="grid"
+					styleClass="ui-panelgrid-blank">
+
+					<h:outputLabel value="#{employeeView.employee.name}" style="font-weight:bold" />
+
+					<h:outputLabel value="Are you sure you want to delete delete the selected Emplyee Details ?" />
+
+					<h:panelGroup>
+						<p:commandButton style="width:100px" value="Yes" update="growl, search_result_table"
+							action="#{employeeView.deleteEmployee}" />
+
+						<p:commandButton style="width:100px" value="Cancel" update="growl, search_result_table"
+							onclick="PF('dlg-delete-employee').hide()" process="@none" />
+					</h:panelGroup>
+				</p:panelGrid>
+
+			</div>
+		</h:form>
+	</p:dialog>
+</ui:composition>

@@ -1,5 +1,9 @@
 package com.demo.infohub.serviceapi.dto;
 
+/**
+ * @author imfroz
+ *
+ */
 public class EmployeeDTO {
 
 	private Long id;
@@ -10,7 +14,11 @@ public class EmployeeDTO {
 
 	private String mobile;
 
-	private String password;
+	private String password = "";
+
+	private String email;
+
+	private AddressDTO address;
 
 	public Long getId() {
 		return id;
@@ -50,6 +58,22 @@ public class EmployeeDTO {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public AddressDTO getAddress() {
+		return address;
+	}
+
+	public void setAddress(AddressDTO address) {
+		this.address = address;
 	}
 
 }

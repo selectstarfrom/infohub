@@ -1,0 +1,41 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+	<p:fieldset legend="Search" style="margin-bottom:20px" toggleable="true" toggleSpeed="500">
+
+
+		<h:form prependId="false">
+
+
+			<div class="ui-fluid">
+				<p:panelGrid columns="4" columnClasses="ui-grid-col-3,ui-grid-col-3,ui-grid-col-2,ui-grid-col-2" layout="grid"
+					styleClass="ui-panelgrid-blank">
+
+					<h:panelGroup>
+						<h:outputLabel for="search_name" value="Name:" />
+						<p:inputText id="search_name" value="#{employeeView.searchName}" title="Name containing" />
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<h:outputLabel for="search_nationality" value="Nationality" />
+						<p:selectCheckboxMenu id="search_nationality" value="#{employeeView.searchNationalities}" label="Nations"
+							multiple="true" filter="true" filterMatchMode="startsWith" panelStyle="width:450px" style="height:30px">
+							<f:selectItems value="#{employeeView.nations}" />
+						</p:selectCheckboxMenu>
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<p:commandButton value="Search" update="growl, search_result_table" action="#{employeeView.seacrhEmployee}"
+							style="margin-top:15px" />
+					</h:panelGroup>
+
+					<h:panelGroup rendered="#{employeeView.admin}">
+						<p:commandButton value="New" action="#{employeeView.showNewEmployeeActionListener}" style="margin-top:15px" />
+					</h:panelGroup>
+
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</p:fieldset>
+
+</ui:composition>

@@ -4,18 +4,24 @@ import java.util.List;
 
 import com.demo.infohub.serviceapi.dto.EmployeeDTO;
 
+/**
+ * @author imfroz
+ *
+ */
 public interface IEmployeeService {
 
 	EmployeeDTO saveEmployee(EmployeeDTO pEmployeeDTO);
-
-	int updateEmployee(EmployeeDTO pEmployeeDTO);
 
 	int deleteEmployee(Long pEmployeeId);
 
 	EmployeeDTO getEmployeeById(Long pEmployeeId);
 
-	List<EmployeeDTO> getEmployeeByName(String pEmployeeName);
+	List<EmployeeDTO> getEmployeeByNameAndNationality(String pName, List<String> pNationalities);
 
-	List<EmployeeDTO> getEmployeeByNationality(String pEmployeeNationality);
+	List<EmployeeDTO> getAll();
+
+	List<EmployeeDTO> getFewByNameAndNationality(String pName, List<String> pNationalities);
+
+	EmployeeDTO getByEmailIdAndPassword(String username, String password);
 
 }

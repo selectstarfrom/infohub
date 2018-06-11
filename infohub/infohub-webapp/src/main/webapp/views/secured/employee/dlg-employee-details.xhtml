@@ -1,0 +1,88 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+	<p:dialog id="dlg-employee-details" widgetVar="dlg-employee-details" modal="true" responsive="true"
+		styleClass="ui-sm-12 ui-md-12 ui-g-6 ui-lg-6" resizable="false" width="500" header="Employee Details" dynamic="true"
+		closable="true">
+
+		<p:ajax event="open" update="pnl-employee-details" />
+
+		<h:form prependId="false">
+
+
+			<div class="ui-fluid">
+				<p:panelGrid id="pnl-employee-details" columns="2" columnClasses="ui-grid-col-5,ui-grid-col-7" layout="grid"
+					styleClass="ui-panelgrid-blank">
+
+
+					<h:outputLabel for="new_name" value="Name:" />
+					<p:inputText disabled="#{employeeView.viewMode}" id="new_name" value="#{employeeView.employee.name}"
+						title="Employee Name" required="true" requiredMessage="Please enter the Full Name" />
+
+					<h:outputLabel for="new_email" value="Email" />
+					<p:inputText disabled="#{employeeView.viewMode}" id="new_email" value="#{employeeView.employee.email}"
+						required="true" title="Employee Email" requiredMessage="Please enter your email address."
+						validatorMessage="Invalid email format">
+						<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+					</p:inputText>
+
+					<h:outputLabel for="new_mobile" value="Mobile:" />
+					<p:inputText disabled="#{employeeView.viewMode}" id="new_mobile" value="#{employeeView.employee.mobile}"
+						title="Employee Mobile No." required="true" requiredMessage="Please enter the Mobile Number" />
+
+					<h:outputLabel for="new_nationality" value="Nationality" />
+					<p:selectOneMenu disabled="#{employeeView.viewMode}" id="new_nationality"
+						value="#{employeeView.employee.nationality}" panelStyle="width:180px" effect="fade" filter="true"
+						filterMatchMode="startsWith" title="Employee Nationality" required="true"
+						requiredMessage="Please select the Nationality">
+						<f:selectItems value="#{employeeView.nations}" />
+					</p:selectOneMenu>
+
+					<h:outputLabel for="new_address" value="Address:" />
+					<p:inputText disabled="#{employeeView.viewMode}" id="new_address" value="#{employeeView.employee.address.address}"
+						title="Employee Address" required="true" requiredMessage="Please enter the Address" />
+
+					<h:outputLabel for="new_city" value="City:" />
+					<p:inputText disabled="#{employeeView.viewMode}" id="new_city" value="#{employeeView.employee.address.city}"
+						title="Employee City" />
+
+					<h:outputLabel for="new_state" value="State:" />
+					<p:inputText disabled="#{employeeView.viewMode}" id="new_state" value="#{employeeView.employee.address.state}"
+						title="Employee State" />
+
+					<h:outputLabel for="new_country" value="Country:" />
+					<p:inputText disabled="#{employeeView.viewMode}" id="new_country" value="#{employeeView.employee.address.country}"
+						title="Employee Country" />
+
+					<h:outputLabel for="new_zip" value="Zip:" />
+					<p:inputText disabled="#{employeeView.viewMode}" id="new_zip" value="#{employeeView.employee.address.zip}"
+						title="Employee Zip" required="true" requiredMessage="Please enter the Zip" />
+
+					<h:outputLabel for="new_pass" value="Password:" />
+					<p:password disabled="#{employeeView.viewMode}" id="new_pass" value="#{employeeView.employee.password}"
+						title="Employee Password. Keep blank for default password 'pass123'" feedback="true" required="true"
+						requiredMessage="Please enter the Password" match="new_pass_rpt" label="Password" />
+
+					<h:outputLabel for="new_pass_rpt" value="Repeat Password:" />
+					<p:password disabled="#{employeeView.viewMode}" id="new_pass_rpt" value="#{employeeView.repeatPassword}"
+						title="Employee Password. Keep blank for default password 'pass123'" required="true"
+						requiredMessage="Please enter the Password" label="Repeat Password" />
+
+					<p:commandButton rendered="#{!employeeView.viewMode}" style="width:100px" value="Save"
+						update="growl, search_result_table" action="#{employeeView.saveEmployee}" />
+
+					<p:commandButton rendered="#{!employeeView.viewMode}" style="width:100px" value="Cancel"
+						update="growl, search_result_table" onclick="PF('dlg-employee-details').hide()" process="@none" />
+
+					<p:commandButton rendered="#{employeeView.viewMode}" style="width:100px" value="Close"
+						update="growl, search_result_table" onclick="PF('dlg-employee-details').hide()" process="@none" />
+
+					<p:commandButton rendered="#{employeeView.admin and employeeView.viewMode}" style="width:100px" value="Edit" update="pnl-employee-details"
+						action="#{employeeView.makeDetailsEditableActionListener}" />
+
+
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</p:dialog>
+</ui:composition>
