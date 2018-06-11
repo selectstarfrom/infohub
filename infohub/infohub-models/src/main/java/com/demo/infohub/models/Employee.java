@@ -8,10 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.Cascade;
 
 @Entity
 @Table(name = "EMPLOYEE")
@@ -39,6 +38,7 @@ public class Employee {
 	private String email;
 
 	@OneToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ADDRESS_ID")
 	private Address address;
 
 	public Long getId() {
