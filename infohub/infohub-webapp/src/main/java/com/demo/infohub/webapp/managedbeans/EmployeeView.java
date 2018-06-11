@@ -4,8 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,19 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		super.init();
+		if (!isAuthenticated()) {
+			FacesContext ctx = FacesContext.getCurrentInstance();
+
+			ExternalContext extContext = ctx.getExternalContext();
+			String url = extContext
+					.encodeActionURL(ctx.getApplication().getViewHandler().getActionURL(ctx, "/views/index.xhtml"));
+			try {
+				extContext.redirect(url);
+			} catch (Exception ioe) {
+				ioe.printStackTrace();
+			}
+
+		}
 	}
 
 	public void initialize() {

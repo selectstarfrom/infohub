@@ -14,6 +14,9 @@ import javax.servlet.ServletContext;
 import org.slf4j.Logger;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.demo.infohub.serviceapi.constants.Constants;
+import com.demo.infohub.serviceapi.dto.EmployeeDTO;
+
 /**
  * @author imfroz
  *
@@ -69,6 +72,10 @@ public abstract class AbstractBaseBean implements Serializable {
 		getContext().getExternalContext().getSessionMap().put(pKey, pValue);
 	}
 
+	protected void storeObjectToSession(String pKey, Object pValue) {
+		getContext().getExternalContext().getSessionMap().put(pKey, pValue);
+	}
+
 	protected Double getValueFromSessionAsDouble(String pKey) {
 		Object valueFromSession = getValueFromSession(pKey);
 		return valueFromSession != null ? Double.parseDouble(valueFromSession.toString().trim()) : null;
@@ -113,6 +120,30 @@ public abstract class AbstractBaseBean implements Serializable {
 
 	public void setBundle(ResourceBundle pBundle) {
 		bundle = pBundle;
+	}
+
+	public boolean isAdmin() {
+
+		Object lValueFromSession = getValueFromSession(Constants.LOGGED_IN_USER);
+
+		if (lValueFromSession != null) {
+			EmployeeDTO lEmployeeDTO = (EmployeeDTO) lValueFromSession;
+			if (Constants.ADMIN_EMAILID.equals(lEmployeeDTO.getEmail())) {
+				return true;
+			}
+
+		}
+		return false;
+	}
+
+	public boolean isAuthenticated() {
+
+		Object lValueFromSession = getValueFromSession(Constants.IS_AUTHENTICATED);
+
+		if (Constants.AUTHENTICATED.equals(lValueFromSession))
+			return true;
+
+		return false;
 	}
 
 }

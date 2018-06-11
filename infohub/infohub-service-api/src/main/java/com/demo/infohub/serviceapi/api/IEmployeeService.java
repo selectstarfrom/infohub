@@ -18,4 +18,6 @@ public interface IEmployeeService {
 
 	List<EmployeeDTO> getFewByNameAndNationality(String pName, List<String> pNationalities);
 
+	EmployeeDTO getByEmailIdAndPassword(String username, String password);
+
 }

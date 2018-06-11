@@ -26,6 +26,16 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	private IEmployeeRepository employeeRepository;
 
 	@Override
+	@Transactional(propagation = Propagation.REQUIRED)
+	public EmployeeDTO getByEmailIdAndPassword(String pUsername, String pPassword) {
+		Employee lSource = employeeRepository.getByEmailAndPassword(pUsername, pPassword);
+
+		EmployeeDTO lTarget = copyToDTO(lSource);
+
+		return lTarget;
+	}
+
+	@Override
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public EmployeeDTO saveEmployee(EmployeeDTO pEmployeeDTO) {
 
@@ -152,6 +162,9 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	}
 
 	private EmployeeDTO copyToDTO(Employee pEmployee) {
+		if (pEmployee == null) {
+			return null;
+		}
 		EmployeeDTO lTargetEmployee = new EmployeeDTO();
 		AddressDTO lTargetAddress = new AddressDTO();
 		lTargetEmployee.setAddress(lTargetAddress);

@@ -97,8 +97,8 @@ public class InfoHubApplication extends SpringBootServletInitializer implements 
 				context.addServletContainerInitializer(new FacesInitializer(),
 						getServletContainerInitializerHandlesTypes(FacesInitializer.class));
 
-				// context.addWelcomeFile("views/index.xhtml");
-				context.addWelcomeFile("views/secured/employee/pg-employee.xhtml");
+				context.addWelcomeFile("views/index.xhtml");
+				// context.addWelcomeFile("views/secured/employee/pg-employee.xhtml");
 
 				context.addMimeMapping("eot", "application/vnd.ms-fontobject");
 				context.addMimeMapping("ttf", "application/font-sfnt");

@@ -15,11 +15,13 @@ import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import com.demo.infohub.serviceapi.constants.Constants;
+import com.demo.infohub.serviceapi.dto.EmployeeDTO;
 import com.demo.infohub.serviceimpl.services.EmployeeServiceImpl;
 
 @ManagedBean(name = "indexPageView")
 @ViewScoped
-public class IndexPageView implements Serializable {
+public class IndexPageView extends AbstractBaseBean implements Serializable {
 
 	private static final long serialVersionUID = -4607567529855886049L;
 
@@ -73,23 +75,24 @@ public class IndexPageView implements Serializable {
 	public void login() {
 
 		System.out.println();
-		employeeService.saveEmployee(null);
 		FacesMessage message = null;
 		boolean loggedIn = false;
 
-		if (username != null && username.equals("admin") && password != null && password.equals("admin")) {
+		EmployeeDTO lUser = employeeService.getByEmailIdAndPassword(getUsername(), getPassword());
+
+		if (lUser != null) {
 			loggedIn = true;
+			storeObjectToSession(Constants.LOGGED_IN_USER, lUser);
+			storeToSession(Constants.AUTHENTICATED, "YES");
 			FacesContext ctx = FacesContext.getCurrentInstance();
 
 			ExternalContext extContext = ctx.getExternalContext();
 			String url = extContext.encodeActionURL(ctx.getApplication().getViewHandler().getActionURL(ctx,
 					"/views/secured/employee/pg-employee.xhtml"));
 			try {
-
 				extContext.redirect(url);
 			} catch (Exception ioe) {
 				ioe.printStackTrace();
-
 			}
 
 			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
