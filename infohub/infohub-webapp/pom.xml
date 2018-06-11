@@ -13,7 +13,7 @@
 
 	<properties>
 		<java.version>8</java.version>
-		<tomcat.version>8.5.16</tomcat.version>
+		<tomcat.version>8.5.31</tomcat.version>
 		<jsf-mojarra.version>2.2.11</jsf-mojarra.version>
 		<primefaces.version>6.2</primefaces.version>
 		<start-class>com.demo.infohub.webapp.app.InfoHubApplication</start-class>
@@ -121,11 +121,8 @@
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.primefaces.themes/start -->
-		<dependency>
-			<groupId>org.primefaces.themes</groupId>
-			<artifactId>start</artifactId>
-			<version>1.0.10</version>
-		</dependency>
+		<!-- <dependency> <groupId>org.primefaces.themes</groupId> <artifactId>start</artifactId> 
+			<version>1.0.10</version> </dependency> -->
 
 		<!-- https://mvnrepository.com/artifact/org.primefaces.themes/redmond -->
 		<dependency>
@@ -137,4 +134,75 @@
 
 
 	</dependencies>
+
+	<build>
+		<outputDirectory>src/main/webapp/WEB-INF/classes</outputDirectory>
+		<finalName>infohub</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<addResources>true</addResources>
+					<mainClass>${start-class}</mainClass>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<failOnMissingWebXml>false</failOnMissingWebXml>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<profiles>
+
+		<profile>
+			<id>war</id>
+			<properties>
+				<project.package>war</project.package>
+			</properties>
+			<activation>
+				<property>
+					<name>tomcat</name>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-war-plugin</artifactId>
+						<version>3.1.0</version>
+						<configuration>
+							<packagingExcludes>WEB-INF/lib/tomcat*.jar</packagingExcludes>
+							<failOnMissingWebXml>false</failOnMissingWebXml>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+		<profile>
+			<id>jar</id>
+			<properties>
+				<project.package>jar</project.package>
+			</properties>
+			<build>
+				<plugins>
+
+				</plugins>
+			</build>
+		</profile>
+
+	</profiles>
 </project>
