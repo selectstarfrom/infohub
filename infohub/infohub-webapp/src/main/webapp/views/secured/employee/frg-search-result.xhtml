@@ -5,13 +5,12 @@
 		<p:fieldset legend="Search Result" style="margin-bottom:20px">
 
 
-			<p:dataTable styleClass="borderless-data-tablex" value="#{employeeView.employees}" var="item"
-				id="search_result_table" widgetVar="search_result_table" paginator="true" rows="15" rowsPerPageTemplate="5,10,15"
-				lazy="true" reflow="true" paginatorPosition="bottom" scrollable="true" scrollHeight="400"
-				style="margin-top: 10px;margin-bottom: 10px;" emptyMessage="No matching employee found" rowExpandMode="single"
+			<p:dataTable value="#{employeeView.employees}" var="item" id="search_result_table" widgetVar="search_result_table"
+				paginator="true" rows="15" rowsPerPageTemplate="5,10,15" lazy="true" reflow="true" paginatorPosition="bottom"
+				scrollable="true" scrollHeight="400" style="margin-top: 10px;margin-bottom: 10px;"
+				emptyMessage="No matching employee found" rowExpandMode="single"
 				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-				paginatorAlwaysVisible="false" selection="#{employeeView.selectedEmployee}" selectionMode="single"
-				rowKey="#{item.id}">
+				paginatorAlwaysVisible="false" selection="#{employeeView.employee}" selectionMode="single" rowKey="#{item.id}">
 
 				<p:column headerText="Employee Name">
 					<p:outputLabel value="#{item.name}" />
@@ -21,7 +20,7 @@
 					<p:outputLabel value="#{item.email}" />
 				</p:column>
 
-				<p:column headerText="Address">
+				<p:column headerText="Nationality">
 					<p:outputLabel value="#{item.nationality}" />
 				</p:column>
 
@@ -30,7 +29,7 @@
 				</p:column>
 
 				<p:column headerText="Action">
-					<p:commandLink actionListener="#{employeeView.showViewEmployeeActionListener(item.id)}" update="dlg-view-employee"
+					<p:commandLink actionListener="#{employeeView.showViewEmployeeActionListener(item.id)}"
 						title="View Employee Details">
 						<i class="fa fa-folder-open-o" />
 					</p:commandLink>

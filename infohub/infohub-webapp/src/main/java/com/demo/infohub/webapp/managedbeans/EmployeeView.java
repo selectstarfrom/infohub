@@ -23,10 +23,10 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 
 	private static final long serialVersionUID = 8816016836035127826L;
 
+	private boolean viewMode = true;
 	private String searchName;
 	private List<String> searchNationalities;
 	private EmployeeDTO employee;
-	private EmployeeDTO selectedEmployee;
 	private EmployeeDataModel employees;
 
 	@Autowired
@@ -48,48 +48,48 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 	}
 
 	public void saveEmployee() {
+
+		boolean lUpdate = true;
+		if (employee.getId() == null) {
+			lUpdate = false;
+		}
 		try {
 			employee = employeeService.saveEmployee(employee);
 		} catch (Exception e) {
-			error("Error occurred while saving Employee details. Please contact admin.", "pg-root-msg");
+			if (lUpdate) {
+				error("Error occurred while updating Employee details. Please contact admin.", "pg-root-msg");
+			} else {
+				error("Error occurred while saving Employee details. Please contact admin.", "pg-root-msg");
+			}
+			return;
 		}
 
 		PrimeFaces pf = PrimeFaces.current();
-		pf.executeScript("PF('dlg-new-employee').hide();");
-
-		info("Employee details saved Successfully.", "pg-root-msg");
-
-	}
-
-	public void updateEmployee() {
-		try {
-			employee = employeeService.saveEmployee(employee);
-		} catch (Exception e) {
-			error("Error occurred while updating Employee details. Please contact admin.", "pg-root-msg");
+		pf.executeScript("PF('dlg-employee-details').hide();");
+		if (lUpdate) {
+			info("Employee details updated Successfully.", "pg-root-msg");
+		} else {
+			info("Employee details saved Successfully.", "pg-root-msg");
 		}
+		setViewMode(true);
 
-		PrimeFaces pf = PrimeFaces.current();
-		pf.executeScript("PF('dlg-new-employee').hide();");
-
-		info("Employee details updated Successfully.", "pg-root-msg");
-
-	}
-
-	public void selectEmployeeDetailActionListener(SelectEvent pEvent) {
-		EmployeeDTO lObject = (EmployeeDTO) pEvent.getObject();
-		EmployeeDTO lById = employeeService.getEmployeeById(lObject.getId());
-		setSelectedEmployee(lById);
 	}
 
 	public void showNewEmployeeActionListener() {
 		this.employee = newEmployeeInstance();
+		setViewMode(false);
 	}
 
 	public void showViewEmployeeActionListener(Long pEmployeeId) {
+		setViewMode(true);
 		EmployeeDTO lById = employeeService.getEmployeeById(pEmployeeId);
 		setEmployee(lById);
 		PrimeFaces pf = PrimeFaces.current();
-		pf.executeScript("PF('dlg-view-employee').show();");
+		pf.executeScript("PF('dlg-employee-details').show();");
+	}
+
+	public void makeDetailsEditableActionListener() {
+		setViewMode(false);
 	}
 
 	public void seacrhEmployee() {
@@ -126,14 +126,6 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 		this.employee = employee;
 	}
 
-	public EmployeeDTO getSelectedEmployee() {
-		return selectedEmployee;
-	}
-
-	public void setSelectedEmployee(EmployeeDTO selectedEmployee) {
-		this.selectedEmployee = selectedEmployee;
-	}
-
 	public EmployeeDataModel getEmployees() {
 		return employees;
 	}
@@ -144,6 +136,14 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 
 	public List<String> getNations() {
 		return NationalityList.ALL;
+	}
+
+	public boolean isViewMode() {
+		return viewMode;
+	}
+
+	public void setViewMode(boolean viewMode) {
+		this.viewMode = viewMode;
 	}
 
 }

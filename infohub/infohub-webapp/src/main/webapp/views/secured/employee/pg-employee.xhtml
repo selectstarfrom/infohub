@@ -16,12 +16,12 @@
 
 	<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
 	<p:messages autoUpdate="false" showDetail="true" id="pg-root-msg" closable="true" showSummary="false" />
-	
+
 	<p:panel header="Employee" style="float:right">
 		<ui:include src="frg-search-panel.xhtml" />
 		<ui:include src="frg-search-result.xhtml" />
-		<ui:include src="dlg-new-employee.xhtml" />
-		<ui:include src="dlg-view-employee.xhtml" />
+		<ui:include src="dlg-employee-details.xhtml" />
+		<ui:include src="dlg-delete-employee.xhtml" />
 	</p:panel>
 
 </h:body>
