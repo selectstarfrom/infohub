@@ -45,8 +45,12 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
 	public EmployeeDTO getEmployeeById(Long pEmployeeId) {
-		// TODO Auto-generated method stub
-		return null;
+
+		Employee lSource = employeeRepository.findOne(pEmployeeId);
+
+		EmployeeDTO lTarget = copyToDTO(lSource);
+
+		return lTarget;
 	}
 
 	@Override

@@ -1,74 +1,50 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+	<h:form prependId="false">
+		<p:panel style="margin-top:10px">
 
-<h:head>
-	<f:facet name="first">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-	</f:facet>
-	<title>InfoHub</title>
-</h:head>
+			<p:outputLabel value="Search Result" />
 
-<h:body>
+			<p:dataTable styleClass="borderless-data-tablex" value="#{employeeView.employees}" var="item"
+				id="search_result_table" widgetVar="search_result_table" paginator="true" rows="15" rowsPerPageTemplate="5,10,15"
+				lazy="true" reflow="true" paginatorPosition="bottom" scrollable="true" scrollHeight="400"
+				style="margin-top: 10px;margin-bottom: 10px;" emptyMessage="No matching employee found" rowExpandMode="single"
+				paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+				paginatorAlwaysVisible="false" selection="#{employeeView.selectedEmployee}" selectionMode="single"
+				rowKey="#{item.id}">
 
-	<p:panel style="margin-top:10px">
+				<p:column headerText="Employee Name">
+					<p:outputLabel value="#{item.name}" />
+				</p:column>
 
-		<p:outputLabel value="Search Result" />
+				<p:column headerText="Email">
+					<p:outputLabel value="#{item.email}" />
+				</p:column>
 
-		<p:dataTable styleClass="borderless-data-tablex" value="#{employeeView.employees}" var="item" id="search_result_table"
-			widgetVar="search_result_table" paginator="true" rows="15" rowsPerPageTemplate="5,10,15" lazy="true" reflow="true"
-			paginatorPosition="bottom" scrollable="true" scrollHeight="400" style="margin-top: 10px;margin-bottom: 10px;"
-			emptyMessage="No matching employee found" rowExpandMode="single"
-			paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-			paginatorAlwaysVisible="false" selection="#{employeeView.selectedEmployee}" selectionMode="single"
-			rowKey="#{item.id}">
+				<p:column headerText="Address">
+					<p:outputLabel value="#{item.nationality}" />
+				</p:column>
 
-			<p:ajax event="rowSelect" listener="#{employeeView.selectCustomerDetailActionListener}" />
-			<p:ajax event="rowUnselect" listener="#{employeeView.unselectCustomerDetailActionListener}" />
+				<p:column headerText="Mobile">
+					<p:outputLabel value="#{item.mobile}" />
+				</p:column>
 
-			<p:column headerText="Employee Name">
-				<p:outputLabel value="#{item.name}" />
-			</p:column>
+				<p:column headerText="Action">
+					<p:commandLink actionListener="#{employeeView.showViewEmployeeActionListener(item.id)}"
+						update="dlg-view-employee" title="View Employee Details">
+						<i class="fa fa-folder-open-o" />
+					</p:commandLink>
 
-			<p:column headerText="Email">
-				<p:outputLabel value="#{item.email}" />
-			</p:column>
+					<p:spacer width="15px" />
 
-			<p:column headerText="Address">
-				<p:outputLabel value="#{item.nationality}" />
-			</p:column>
+					<p:commandLink actionListener="#{employeeView.actions.deleteEmployeeActionListener(item.id)}"
+						update="search_result_table" title="Delete Emloyee Details">
+						<i class="fa fa-trash-o" />
+					</p:commandLink>
 
-			<p:column headerText="Mobile">
-				<p:outputLabel value="#{item.mobile}" />
-			</p:column>
+				</p:column>
 
-			<!-- <p:column headerText="Action" styleClass="mutli-action-column">
-				<p:commandLink actionListener="#{employeeView.actions.showCustomerDetailActionListener(item.id)}"
-					update="customer-tabs" title="View Details">
-					<i class="fa fa-folder-open" />
-				</p:commandLink>
-
-				<p:commandLink actionListener="#{employeeView.actions.showCustomerDetailActionListener(item.id)}"
-					update="customer-tabs" title="View Transactions">
-					<i class="fa fa-tasks" />
-				</p:commandLink>
-
-				<p:commandLink actionListener="#{employeeView.actions.showCustomerDetailActionListener(item.id)}"
-					update="customer-tabs" title="New Entry Transaction">
-					<i class="fa fa-sign-in" />
-				</p:commandLink>
-				<p:commandLink actionListener="#{employeeView.actions.showCustomerDetailActionListener(item.id)}"
-					update="customer-tabs" title="New Exit Transaction">
-					<i class="fa fa-sign-out" />
-				</p:commandLink>
-			</p:column> -->
-
-		</p:dataTable>
-	</p:panel>
-
-</h:body>
-
-</html>
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+</ui:composition>

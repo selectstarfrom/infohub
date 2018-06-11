@@ -7,13 +7,10 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
 
 import org.primefaces.context.RequestContext;
+import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.demo.infohub.serviceapi.dto.AddressDTO;
 import com.demo.infohub.serviceapi.dto.EmployeeDTO;
@@ -65,7 +62,7 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 		try {
 			employee = employeeService.saveEmployee(employee);
 		} catch (Exception e) {
-			error("Error occurred while Employee details. Please contact admin.", "pg-root-msg");
+			error("Error occurred while saving Employee details. Please contact admin.", "pg-root-msg");
 		}
 
 		RequestContext context = RequestContext.getCurrentInstance();
@@ -74,8 +71,38 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 
 	}
 
+	public void updateEmployee() {
+		try {
+			employee = employeeService.saveEmployee(employee);
+		} catch (Exception e) {
+			error("Error occurred while updating Employee details. Please contact admin.", "pg-root-msg");
+		}
+
+		RequestContext context = RequestContext.getCurrentInstance();
+		context.execute("PF('dlg-new-employee').hide();");
+		info("Employee details updated Successfully.", "pg-root-msg");
+
+	}
+
+	public void selectEmployeeDetailActionListener(SelectEvent pEvent) {
+		EmployeeDTO lObject = (EmployeeDTO) pEvent.getObject();
+		EmployeeDTO lById = employeeService.getEmployeeById(lObject.getId());
+		setSelectedEmployee(lById);
+	}
+
+	// public void unselectCustomerDetailActionListener(UnselectEvent pEvent) {
+	// getAccessor().setCustomer(null);
+	// }
+
 	public void showNewEmployeeActionListener() {
 		this.employee = newEmployeeInstance();
+	}
+
+	public void showViewEmployeeActionListener(Long pEmployeeId) {
+		EmployeeDTO lById = employeeService.getEmployeeById(pEmployeeId);
+		setEmployee(lById);
+		RequestContext context = RequestContext.getCurrentInstance();
+		context.execute("PF('dlg-view-employee').show();");
 	}
 
 	public void seacrhEmployee() {
