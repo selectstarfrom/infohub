@@ -12,23 +12,23 @@
 	<title>InfoHub</title>
 </h:head>
 
-<h:body styleClass="landing-body">
+<h:body>
 
-	<p:panel header="Login" style="float:right">
+	<p:panel header="Employee" style="float:right">
 		<h:form>
 
 			<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
 
 
 			<h:panelGrid columns="2" cellpadding="5">
-				<h:outputLabel for="username" value="Username:" />
-				<p:inputText id="username" value="#{indexPageView.username}" required="true" label="username" />
+				<h:outputLabel for="name" value="Name:" />
+				<p:inputText id="name" value="#{employeeView.employee.name}" required="true" title="Your full name" />
 
-				<h:outputLabel for="password" value="Password:" />
-				<p:password id="password" value="#{indexPageView.password}" required="true" label="password" />
+				<h:outputLabel for="nationality" value="Nationality:" />
+				<p:inputText id="nationality" value="#{employeeView.employee.nationality}" required="true" title="Your Nationality" />
 
 				<f:facet name="footer">
-					<p:commandButton value="Login" update="growl" action="#{indexPageView.login}" />
+					<p:commandButton value="Login" update="growl" action="#{employeeView.save}" />
 				</f:facet>
 			</h:panelGrid>
 

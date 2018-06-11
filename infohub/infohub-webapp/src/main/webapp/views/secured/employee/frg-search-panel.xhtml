@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<f:facet name="first">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+	</f:facet>
+	<title>InfoHub</title>
+</h:head>
+
+<h:body>
+
+	<p:panel>
+
+		<p:outputLabel value="Search" />
+
+		<h:form>
+
+
+			<div class="ui-fluid">
+				<p:panelGrid columns="3" columnClasses="ui-grid-col-3,ui-grid-col-3,ui-grid-col-2" layout="grid"
+					styleClass="ui-panelgrid-blank">
+
+					<h:panelGroup>
+						<h:outputLabel for="search_name" value="Name:" />
+						<p:inputText id="search_name" value="#{employeeView.searchName}" title="Name containing" />
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<h:outputLabel for="search_nationality" value="Nationality" />
+						<p:selectCheckboxMenu id="search_nationality" value="#{employeeView.searchNationalities}" label="Nations"
+							multiple="true" filter="true" filterMatchMode="startsWith" panelStyle="width:450px" style="height:30px">
+							<f:selectItems value="#{employeeView.nations}" />
+						</p:selectCheckboxMenu>
+					</h:panelGroup>
+
+					<h:panelGroup>
+						<p:commandButton value="Search" update="growl" action="#{employeeView.save}" style="margin-top:15px" />
+					</h:panelGroup>
+
+				</p:panelGrid>
+			</div>
+		</h:form>
+	</p:panel>
+
+</h:body>
+
+</html>

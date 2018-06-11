@@ -10,16 +10,16 @@ import org.primefaces.model.SelectableDataModel;
 
 import com.demo.infohub.serviceapi.dto.EmployeeDTO;
 
-public class EmployeeDTODataModel extends ListDataModel<EmployeeDTO>
+public class EmployeeDataModel extends ListDataModel<EmployeeDTO>
 		implements SelectableDataModel<EmployeeDTO>, Serializable {
 
 	private static final long serialVersionUID = -1519555363649558350L;
 
-	public EmployeeDTODataModel() {
+	public EmployeeDataModel() {
 		setWrappedData(new ArrayList<>());
 	}
 
-	public EmployeeDTODataModel(List<EmployeeDTO> data) {
+	public EmployeeDataModel(List<EmployeeDTO> data) {
 		super(data);
 	}
 

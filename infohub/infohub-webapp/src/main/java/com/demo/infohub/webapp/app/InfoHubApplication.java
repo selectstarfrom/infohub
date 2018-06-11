@@ -18,12 +18,13 @@ import org.primefaces.util.Constants;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.boot.web.embedded.tomcat.TomcatContextCustomizer;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
+import org.springframework.boot.context.embedded.tomcat.TomcatContextCustomizer;
+import org.springframework.boot.context.embedded.tomcat.TomcatEmbeddedServletContainerFactory;
 import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.boot.web.servlet.ServletListenerRegistrationBean;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
-import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
+import org.springframework.boot.web.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -72,11 +73,10 @@ public class InfoHubApplication extends SpringBootServletInitializer implements 
 
 				// sc.setInitParameter("javax.faces.FACELETS_LIBRARIES",
 				// "/WEB-INF/primefaces-avalon.taglib.xml");
-				// sc.setInitParameter(Constants.ContextParams.THEME, "avalon-firewatch");
+				sc.setInitParameter(Constants.ContextParams.THEME, "redmond");
 				sc.setInitParameter(Constants.ContextParams.FONT_AWESOME, "true");
 				sc.setInitParameter(ProjectStage.PROJECT_STAGE_PARAM_NAME, ProjectStage.Development.name());
 				sc.setInitParameter("com.sun.faces.injectionProvider", "com.softwood.SpringInjectionProvider");
-				sc.setInitParameter("com.sun.faces.forceLoadConfiguration", "true");
 				sc.setInitParameter("com.sun.faces.forceLoadConfiguration", "true");
 				sc.setInitParameter("javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE", "true");
 			}
@@ -85,8 +85,9 @@ public class InfoHubApplication extends SpringBootServletInitializer implements 
 
 	@Bean
 	// @ConditionalOnMissingBean(NonEmbeddedServletContainerFactory.class)
-	public TomcatServletWebServerFactory embeddedServletContainerFactory() {
-		TomcatServletWebServerFactory tomcat = new TomcatServletWebServerFactory();
+	public EmbeddedServletContainerFactory embeddedServletContainerFactory() {
+
+		TomcatEmbeddedServletContainerFactory tomcat = new TomcatEmbeddedServletContainerFactory();
 
 		tomcat.addContextCustomizers(new TomcatContextCustomizer() {
 			@Override
@@ -94,7 +95,8 @@ public class InfoHubApplication extends SpringBootServletInitializer implements 
 				context.addServletContainerInitializer(new FacesInitializer(),
 						getServletContainerInitializerHandlesTypes(FacesInitializer.class));
 
-				context.addWelcomeFile("views/index.xhtml");
+				// context.addWelcomeFile("views/index.xhtml");
+				context.addWelcomeFile("views/secured/employee/pg-employee.xhtml");
 
 				context.addMimeMapping("eot", "application/vnd.ms-fontobject");
 				context.addMimeMapping("ttf", "application/font-sfnt");
@@ -112,6 +114,7 @@ public class InfoHubApplication extends SpringBootServletInitializer implements 
 		});
 
 		return tomcat;
+
 	}
 
 	@SuppressWarnings("rawtypes")
