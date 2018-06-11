@@ -71,6 +71,7 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 		} else {
 			info("Employee details saved Successfully.", "pg-root-msg");
 		}
+		seacrhEmployee();
 		setViewMode(true);
 
 	}

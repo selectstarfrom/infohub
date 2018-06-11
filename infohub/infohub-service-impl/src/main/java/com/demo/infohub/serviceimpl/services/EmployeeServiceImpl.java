@@ -127,7 +127,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	private Employee copyToEntity(EmployeeDTO pSource, Employee pTarget) {
 		BeanUtils.copyProperties(pSource, pTarget);
 		if (pSource.getAddress() != null) {
-			BeanUtils.copyProperties(pSource.getAddress(), pTarget);
+			BeanUtils.copyProperties(pSource.getAddress(), pTarget.getAddress());
 		}
 		return pTarget;
 	}
@@ -135,7 +135,7 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	private EmployeeDTO copyToDTO(Employee pSource, EmployeeDTO pTarget) {
 		BeanUtils.copyProperties(pSource, pTarget);
 		if (pSource.getAddress() != null) {
-			BeanUtils.copyProperties(pSource.getAddress(), pTarget);
+			BeanUtils.copyProperties(pSource.getAddress(), pTarget.getAddress());
 		}
 		return pTarget;
 	}
