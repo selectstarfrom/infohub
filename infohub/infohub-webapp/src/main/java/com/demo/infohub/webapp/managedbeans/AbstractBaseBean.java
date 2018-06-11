@@ -126,7 +126,7 @@ public abstract class AbstractBaseBean implements Serializable {
 		bundle = pBundle;
 	}
 
-	public boolean isAdmin() {
+	public boolean hasAdminRights() {
 
 		Object lValueFromSession = getValueFromSession(Constants.LOGGED_IN_USER);
 
