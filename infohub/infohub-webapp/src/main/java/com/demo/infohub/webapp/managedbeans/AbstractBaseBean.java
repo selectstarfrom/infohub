@@ -41,7 +41,7 @@ public abstract class AbstractBaseBean implements Serializable {
 	}
 
 	protected AbstractBaseBean getViewScoppedBean(String pViewScopedBean) {
-		Map<String, Object> viewMap = getContext().getViewRoot().getViewMap();
+		Map<String, Object> viewMap = getFacesContext().getViewRoot().getViewMap();
 		Object lObject = viewMap.get(pViewScopedBean);
 		if (lObject != null) {
 			AbstractBaseBean viewScopedBean = (AbstractBaseBean) lObject;
@@ -57,23 +57,27 @@ public abstract class AbstractBaseBean implements Serializable {
 	}
 
 	protected Map<String, Object> getSessionMap() {
-		return getContext().getExternalContext().getSessionMap();
+		return getExternalContext().getSessionMap();
 	}
 
 	protected Object getValueFromSession(String pKey) {
-		return getContext().getExternalContext().getSessionMap().get(pKey);
+		return getExternalContext().getSessionMap().get(pKey);
 	}
 
 	protected Object getValueFromRequest(String pKey) {
-		return getContext().getExternalContext().getRequestParameterMap().get(pKey);
+		return getExternalContext().getRequestParameterMap().get(pKey);
 	}
 
 	protected void storeToSession(String pKey, String pValue) {
-		getContext().getExternalContext().getSessionMap().put(pKey, pValue);
+		getExternalContext().getSessionMap().put(pKey, pValue);
+	}
+
+	protected ExternalContext getExternalContext() {
+		return getFacesContext().getExternalContext();
 	}
 
 	protected void storeObjectToSession(String pKey, Object pValue) {
-		getContext().getExternalContext().getSessionMap().put(pKey, pValue);
+		getExternalContext().getSessionMap().put(pKey, pValue);
 	}
 
 	protected Double getValueFromSessionAsDouble(String pKey) {
@@ -86,11 +90,11 @@ public abstract class AbstractBaseBean implements Serializable {
 		return valueFromSession != null ? (valueFromSession + "").trim() : null;
 	}
 
-	private Application getApplication() {
-		return getContext().getApplication();
+	protected Application getApplication() {
+		return getFacesContext().getApplication();
 	}
 
-	private FacesContext getContext() {
+	protected FacesContext getFacesContext() {
 		return FacesContext.getCurrentInstance();
 	}
 
@@ -107,7 +111,7 @@ public abstract class AbstractBaseBean implements Serializable {
 	}
 
 	private void message(FacesMessage pMessage, String pClientId) {
-		getContext().addMessage(pClientId, pMessage);
+		getFacesContext().addMessage(pClientId, pMessage);
 	}
 
 	public ResourceBundle getBundle() {
@@ -146,4 +150,13 @@ public abstract class AbstractBaseBean implements Serializable {
 		return false;
 	}
 
+	protected void redirect(String pUrl) {
+		String url = getExternalContext()
+				.encodeActionURL(getApplication().getViewHandler().getActionURL(getFacesContext(), pUrl));
+		try {
+			getExternalContext().redirect(url);
+		} catch (Exception ioe) {
+			ioe.printStackTrace();
+		}
+	}
 }

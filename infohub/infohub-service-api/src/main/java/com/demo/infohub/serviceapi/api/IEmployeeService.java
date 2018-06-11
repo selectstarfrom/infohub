@@ -4,6 +4,10 @@ import java.util.List;
 
 import com.demo.infohub.serviceapi.dto.EmployeeDTO;
 
+/**
+ * @author imfroz
+ *
+ */
 public interface IEmployeeService {
 
 	EmployeeDTO saveEmployee(EmployeeDTO pEmployeeDTO);

@@ -1,5 +1,9 @@
 package com.demo.infohub.serviceapi.constants;
 
+/**
+ * @author imfroz
+ *
+ */
 public interface Constants {
 
 	String DEFAULT_PASSWORD = "pass123";

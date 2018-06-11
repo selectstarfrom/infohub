@@ -9,6 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import com.demo.infohub.models.Employee;
 
+/**
+ * @author imfroz
+ *
+ */
 @Repository
 public interface IEmployeeRepository extends JpaRepository<Employee, Long> {
 

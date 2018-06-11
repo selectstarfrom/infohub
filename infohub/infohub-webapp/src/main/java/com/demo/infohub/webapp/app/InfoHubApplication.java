@@ -36,6 +36,10 @@ import com.demo.infohub.serviceimpl.config.ServiceConfiguration;
 import com.sun.faces.config.ConfigureListener;
 import com.sun.faces.config.FacesInitializer;
 
+/**
+ * @author imfroz
+ *
+ */
 @Configuration
 @ComponentScan(basePackages = "com.demo.infohub")
 @EnableAutoConfiguration

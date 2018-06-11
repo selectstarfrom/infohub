@@ -9,128 +9,25 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
 		<meta name="apple-mobile-web-app-capable" content="yes" />
 	</f:facet>
-	<title><ui:insert name="title">CDocs</ui:insert></title>
-	<h:outputScript name="js/nanoscroller.js" library="avalon-layout" />
-	<h:outputScript name="js/layout.js" library="avalon-layout" />
-	<ui:insert name="head" />
+	<title>InfoHub</title>
 </h:head>
-
-<style>
-.ui-selectonemenu-label {
-	height: 28px;
-}
-</style>
-
-<script>
-	function enterKey(event) {
-		if (event.which === 13) {
-			var source = event.target || event.srcElement;
-			var next = source.getAttribute('tabindex');
-			next = +next + 1;
-
-			var n = $("[tabindex='" + next + "']");
-			//var n = $("[tabindex='101']");
-
-			var tget = n[0];
-
-			while (typeof tget == 'undefined') {
-				next = +next + 1;
-
-				n = $("[tabindex='" + next + "']");
-				//var n = $("[tabindex='101']");
-
-				tget = n[0];
-			}
-
-			//alert(JSON.stringify(n.id));
-			tget.focus();
-			tget.select();
-			//tget.setSelectionRange(0, this.value.length)
-		}
-	}
-	function enterKeyssss(event) {
-		if (event.which === 13) {
-			var source = event.target || event.srcElement;
-			var next = source.getAttribute('tabindex');
-			next = +next + 1;
-
-			var n = $("[tabindex='" + next + "']");
-			//var n = $("[tabindex='101']");
-
-			var tget = n[0];
-
-			//alert(JSON.stringify(n.id));
-			tget.focus();
-			tget.select();
-			//tget.setSelectionRange(0, this.value.length)
-		}
-	}
-
-	function scrollToTop() {
-		try {
-			$('html, body').animate({
-				scrollTop : 0
-			}, 'slow');
-		} catch (err) {
-			//No Message was found!
-		}
-	}
-
-	$(document).ready(function() {
-
-		$('a[href=#top]').click(function() {
-			$('html, body').animate({
-				scrollTop : 0
-			}, 'slow');
-			return false;
-		});
-
-	});
-</script>
 
 <h:body>
 
-	<div class="layout-wrapper #{userPreferenceBean.menuLayout}">
-
-		<h:form onkeypress="if (event.keyCode == 13) { return false; }">
-
-			<p:idleMonitor timeout="1800000">
-				<p:ajax event="idle" listener="#{idleMonitorView.onIdle}" />
-				<p:ajax event="active" listener="#{idleMonitorView.onActive}" />
-			</p:idleMonitor>
+	<p:panel>
+		<p:outputLabel style="font-size:45px; font-weight:bold">InfoHub</p:outputLabel>
+		<h:form prependId="false" style="float:right">
+			<p:commandLink action="#{indexPageView.logout}">Logout</p:commandLink>
 		</h:form>
+		<p:spacer height="25px" />
+	</p:panel>
+	<p:separator />
 
-		<ui:include src="./topbar.xhtml" />
-		<ui:include src="./menu.xhtml" />
 
-		<div class="layout-main my-layout-main">
-			<ui:insert name="content" />
-		</div>
 
-		<ui:include src="./footer.xhtml" />
-	</div>
+	<ui:insert name="content" />
 
-	<p:ajaxStatus style="width:32px;height:32px;position:fixed;right:7px;bottom:7px">
-		<f:facet name="start">
-			<i class="fa fa-circle-o-notch fa-spin ajax-loader" aria-hidden="true"></i>
-		</f:facet>
 
-		<f:facet name="complete">
-			<h:outputText value="" />
-		</f:facet>
-	</p:ajaxStatus>
-
-	<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
-
-	<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-		<p:graphicImage name="images/preloader.gif" library="avalon-layout" />
-	</p:dialog>
-
-	<h:outputStylesheet name="css/nanoscroller.css" library="avalon-layout" />
-	<h:outputStylesheet name="css/animate.css" library="avalon-layout" />
-	<h:outputStylesheet name="css/layout-firewatch.css" library="avalon-layout" />
-	<h:outputStylesheet name="css/my-style.css" library="avalon-layout" />
-	<h:outputStylesheet name="css/style-landing.css" library="avalon-layout" />
 </h:body>
 
 </html>

@@ -1,40 +1,29 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template.xhtml">
 
-<h:head>
-	<f:facet name="first">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-	</f:facet>
-	<title>InfoHub</title>
-</h:head>
+	<ui:define name="content">
 
-<h:body styleClass="landing-body">
-
-	<p:panel header="Login" style="float:right">
-		<h:form>
-			<p:messages autoUpdate="false" showDetail="true" id="pg-root-msg" closable="true" showSummary="false" />
-			<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+		<p:messages autoUpdate="false" showDetail="true" id="pg-root-msg" closable="true" showSummary="false" />
+		<p:growl id="growl" sticky="true" showDetail="true" life="3000" />
+		<p:panel header="Login" style="margin: 0 auto; width:450px;margin-top:25px;">
+			<h:form>
 
 
-			<h:panelGrid columns="2" cellpadding="5">
-				<h:outputLabel for="username" value="Username:" />
-				<p:inputText id="username" value="#{indexPageView.username}" required="true" label="username" />
+				<h:panelGrid columns="2" cellpadding="5">
+					<h:outputLabel for="username" value="Username:" />
+					<p:inputText id="username" value="#{indexPageView.username}" required="true" label="username" />
 
-				<h:outputLabel for="password" value="Password:" />
-				<p:password id="password" value="#{indexPageView.password}" required="true" label="password" />
+					<h:outputLabel for="password" value="Password:" />
+					<p:password id="password" value="#{indexPageView.password}" required="true" label="password" />
 
-				<f:facet name="footer">
-					<p:commandButton value="Login" update="growl" action="#{indexPageView.login}" />
-				</f:facet>
-			</h:panelGrid>
+					<f:facet name="footer">
+						<p:commandButton value="Login" update="growl" action="#{indexPageView.login}" />
+					</f:facet>
+				</h:panelGrid>
 
-		</h:form>
-	</p:panel>
+			</h:form>
+		</p:panel>
 
-</h:body>
-
-</html>
+	</ui:define>
+</ui:composition>

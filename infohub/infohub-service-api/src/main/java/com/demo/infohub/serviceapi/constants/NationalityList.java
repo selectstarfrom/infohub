@@ -3,6 +3,10 @@ package com.demo.infohub.serviceapi.constants;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author imfroz
+ *
+ */
 public interface NationalityList {
 
 	// @formatter:off

@@ -1,5 +1,9 @@
 package com.demo.infohub.serviceapi.dto;
 
+/**
+ * @author imfroz
+ *
+ */
 public class EmployeeDTO {
 
 	private Long id;

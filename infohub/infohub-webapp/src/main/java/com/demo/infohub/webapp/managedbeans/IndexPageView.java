@@ -1,24 +1,24 @@
 package com.demo.infohub.webapp.managedbeans;
 
-import java.awt.event.ActionEvent;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import javax.servlet.ServletContext;
 
 import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import com.demo.infohub.serviceapi.constants.Constants;
 import com.demo.infohub.serviceapi.dto.EmployeeDTO;
 import com.demo.infohub.serviceimpl.services.EmployeeServiceImpl;
 
+/**
+ * @author imfroz
+ *
+ */
 @ManagedBean(name = "indexPageView")
 @ViewScoped
 public class IndexPageView extends AbstractBaseBean implements Serializable {
@@ -34,10 +34,7 @@ public class IndexPageView extends AbstractBaseBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		ServletContext servletContext = (ServletContext) externalContext.getContext();
-		WebApplicationContextUtils.getRequiredWebApplicationContext(servletContext).getAutowireCapableBeanFactory()
-				.autowireBean(this);
+		super.init();
 	}
 
 	public String getUsername() {
@@ -56,20 +53,12 @@ public class IndexPageView extends AbstractBaseBean implements Serializable {
 		this.password = password;
 	}
 
-	public void loginx(ActionEvent event) {
-		FacesMessage message = null;
-		boolean loggedIn = false;
+	public void logout() {
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().invalidateSession();
 
-		if (username != null && username.equals("admin") && password != null && password.equals("admin")) {
-			loggedIn = true;
-			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
-		} else {
-			loggedIn = false;
-			message = new FacesMessage(FacesMessage.SEVERITY_WARN, "Loggin Error", "Invalid credentials");
-		}
+		redirect("/views/index.xhtml");
 
-		FacesContext.getCurrentInstance().addMessage(null, message);
-		PrimeFaces.current().ajax().addCallbackParam("loggedIn", loggedIn);
 	}
 
 	public void login() {
@@ -86,14 +75,7 @@ public class IndexPageView extends AbstractBaseBean implements Serializable {
 			storeToSession(Constants.AUTHENTICATED, "YES");
 			FacesContext ctx = FacesContext.getCurrentInstance();
 
-			ExternalContext extContext = ctx.getExternalContext();
-			String url = extContext.encodeActionURL(ctx.getApplication().getViewHandler().getActionURL(ctx,
-					"/views/secured/employee/pg-employee.xhtml"));
-			try {
-				extContext.redirect(url);
-			} catch (Exception ioe) {
-				ioe.printStackTrace();
-			}
+			redirect("/views/secured/employee/pg-employee.xhtml");
 
 			message = new FacesMessage(FacesMessage.SEVERITY_INFO, "Welcome", username);
 		} else {

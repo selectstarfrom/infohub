@@ -10,6 +10,10 @@ import org.primefaces.model.SelectableDataModel;
 
 import com.demo.infohub.serviceapi.dto.EmployeeDTO;
 
+/**
+ * @author imfroz
+ *
+ */
 public class EmployeeDataModel extends ListDataModel<EmployeeDTO>
 		implements SelectableDataModel<EmployeeDTO>, Serializable {
 
