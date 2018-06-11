@@ -1,7 +1,11 @@
 package com.demo.infohub.serviceimpl.services;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +42,8 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public int deleteEmployee(Long pEmployeeId) {
-		// TODO Auto-generated method stub
-		return 0;
+		employeeRepository.delete(pEmployeeId);
+		return 1;
 	}
 
 	@Override
@@ -55,24 +59,65 @@ public class EmployeeServiceImpl implements IEmployeeService {
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public List<EmployeeDTO> getEmployeeByName(String pEmployeeName) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<EmployeeDTO> getEmployeeByNameAndNationality(String pName, List<String> pNationalities) {
+
+		List<EmployeeDTO> lResult = new ArrayList<EmployeeDTO>();
+		List<Employee> lQueryResult = employeeRepository.getByNameAndNationality(pName, pNationalities);
+
+		for (Employee lEmployee : lQueryResult) {
+			lResult.add(copyToDTO(lEmployee));
+		}
+
+		return lResult;
 	}
 
 	@Override
 	@Transactional(propagation = Propagation.REQUIRED)
-	public List<EmployeeDTO> getEmployeeByNationality(String pEmployeeNationality) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<EmployeeDTO> getFewByNameAndNationality(String pName, List<String> pNationalities) {
+
+		List<EmployeeDTO> lResult = new ArrayList<EmployeeDTO>();
+
+		if (pName == null) {
+			pName = "";
+		}
+		pName = pName.trim().toLowerCase();
+
+		List<Object[]> lQueryResult = null;
+
+		if (pNationalities == null || pNationalities.isEmpty()) {
+			lQueryResult = employeeRepository.getFewByName(pName);
+		} else {
+			pNationalities = pNationalities.stream().map(p -> p.toLowerCase()).collect(Collectors.toList());
+			lQueryResult = employeeRepository.getFewByNameAndNationality(pName, pNationalities);
+		}
+
+		for (Object[] lEmployee : lQueryResult) {
+			Long lId = (Long) lEmployee[0];
+			String lName = (String) lEmployee[1];
+			String lEmail = (String) lEmployee[2];
+			String lNationality = (String) lEmployee[3];
+			String lMobile = (String) lEmployee[4];
+
+			EmployeeDTO lDto = new EmployeeDTO();
+			lDto.setAddress(new AddressDTO());
+			lDto.setEmail(lEmail);
+			lDto.setId(lId);
+			lDto.setMobile(lMobile);
+			lDto.setName(lName);
+			lDto.setNationality(lNationality);
+
+			lResult.add(lDto);
+		}
+
+		return lResult;
 	}
 
 	@Override
 	public List<EmployeeDTO> getAll() {
 		List<EmployeeDTO> lResult = new ArrayList<EmployeeDTO>();
-		List<Employee> findAll = employeeRepository.findAll();
+		List<Employee> lQueryResult = employeeRepository.findAll();
 
-		for (Employee lEmployee : findAll) {
+		for (Employee lEmployee : lQueryResult) {
 			lResult.add(copyToDTO(lEmployee));
 		}
 

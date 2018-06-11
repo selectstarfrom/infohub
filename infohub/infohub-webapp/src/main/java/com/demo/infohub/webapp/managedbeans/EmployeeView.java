@@ -8,7 +8,7 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
-import org.primefaces.context.RequestContext;
+import org.primefaces.PrimeFaces;
 import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -65,8 +65,9 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 			error("Error occurred while saving Employee details. Please contact admin.", "pg-root-msg");
 		}
 
-		RequestContext context = RequestContext.getCurrentInstance();
-		context.execute("PF('dlg-new-employee').hide();");
+		PrimeFaces pf = PrimeFaces.current();
+		pf.executeScript("PF('dlg-new-employee').hide();");
+
 		info("Employee details saved Successfully.", "pg-root-msg");
 
 	}
@@ -78,8 +79,9 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 			error("Error occurred while updating Employee details. Please contact admin.", "pg-root-msg");
 		}
 
-		RequestContext context = RequestContext.getCurrentInstance();
-		context.execute("PF('dlg-new-employee').hide();");
+		PrimeFaces pf = PrimeFaces.current();
+		pf.executeScript("PF('dlg-new-employee').hide();");
+
 		info("Employee details updated Successfully.", "pg-root-msg");
 
 	}
@@ -90,10 +92,6 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 		setSelectedEmployee(lById);
 	}
 
-	// public void unselectCustomerDetailActionListener(UnselectEvent pEvent) {
-	// getAccessor().setCustomer(null);
-	// }
-
 	public void showNewEmployeeActionListener() {
 		this.employee = newEmployeeInstance();
 	}
@@ -101,13 +99,16 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 	public void showViewEmployeeActionListener(Long pEmployeeId) {
 		EmployeeDTO lById = employeeService.getEmployeeById(pEmployeeId);
 		setEmployee(lById);
-		RequestContext context = RequestContext.getCurrentInstance();
-		context.execute("PF('dlg-view-employee').show();");
+		PrimeFaces pf = PrimeFaces.current();
+		pf.executeScript("PF('dlg-view-employee').show();");
 	}
 
 	public void seacrhEmployee() {
 
-		List<EmployeeDTO> lAllEmployees = employeeService.getAll();
+		String lSearchName = getSearchName();
+		List<String> lSearchNationalities = getSearchNationalities();
+
+		List<EmployeeDTO> lAllEmployees = employeeService.getFewByNameAndNationality(lSearchName, lSearchNationalities);
 		employees = new EmployeeDataModel(lAllEmployees);
 
 	}

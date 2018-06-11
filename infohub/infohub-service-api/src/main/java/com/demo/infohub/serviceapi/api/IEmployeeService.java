@@ -12,10 +12,10 @@ public interface IEmployeeService {
 
 	EmployeeDTO getEmployeeById(Long pEmployeeId);
 
-	List<EmployeeDTO> getEmployeeByName(String pEmployeeName);
-
-	List<EmployeeDTO> getEmployeeByNationality(String pEmployeeNationality);
+	List<EmployeeDTO> getEmployeeByNameAndNationality(String pName, List<String> pNationalities);
 
 	List<EmployeeDTO> getAll();
+
+	List<EmployeeDTO> getFewByNameAndNationality(String pName, List<String> pNationalities);
 
 }
