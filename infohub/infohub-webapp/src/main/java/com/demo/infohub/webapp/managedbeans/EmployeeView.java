@@ -76,6 +76,23 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 
 	}
 
+	public void deleteEmployee() {
+
+		try {
+			employeeService.deleteEmployee(getEmployee().getId());
+		} catch (Exception e) {
+			error("Error occurred while deleting Employee details. Please contact admin.", "pg-root-msg");
+			return;
+		}
+
+		PrimeFaces pf = PrimeFaces.current();
+		pf.executeScript("PF('dlg-delete-employee').hide();");
+		info("Employee details deleted Successfully.", "pg-root-msg");
+		seacrhEmployee();
+		setViewMode(true);
+
+	}
+
 	public void showNewEmployeeActionListener() {
 		this.employee = newEmployeeInstance();
 		setViewMode(false);
@@ -87,6 +104,15 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 		setEmployee(lById);
 		PrimeFaces pf = PrimeFaces.current();
 		pf.executeScript("PF('dlg-employee-details').show();");
+	}
+
+	public void showDeleteEmployeeActionListener(Long pEmployeeId) {
+		setViewMode(true);
+		EmployeeDTO lById = employeeService.getEmployeeById(pEmployeeId);
+		setEmployee(lById);
+		setViewMode(true);
+		PrimeFaces pf = PrimeFaces.current();
+		pf.executeScript("PF('dlg-delete-employee').show();");
 	}
 
 	public void makeDetailsEditableActionListener() {
