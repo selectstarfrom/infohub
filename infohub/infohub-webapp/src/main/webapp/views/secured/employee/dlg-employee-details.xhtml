@@ -34,11 +34,34 @@
 						<f:selectItems value="#{employeeView.nations}" />
 					</p:selectOneMenu>
 
+					<h:outputLabel for="new_address" value="Address:" />
+					<p:inputText disabled="#{employeeView.viewMode}" id="new_address" value="#{employeeView.employee.address.address}"
+						title="Employee Address" />
+
+					<h:outputLabel for="new_city" value="City:" />
+					<p:inputText disabled="#{employeeView.viewMode}" id="new_city" value="#{employeeView.employee.address.city}"
+						title="Employee City" />
+
+					<h:outputLabel for="new_state" value="State:" />
+					<p:inputText disabled="#{employeeView.viewMode}" id="new_state" value="#{employeeView.employee.address.state}"
+						title="Employee State" />
+
+					<h:outputLabel for="new_country" value="Country:" />
+					<p:inputText disabled="#{employeeView.viewMode}" id="new_country" value="#{employeeView.employee.address.country}"
+						title="Employee Country" />
+
+					<h:outputLabel for="new_zip" value="Zip:" />
+					<p:inputText disabled="#{employeeView.viewMode}" id="new_zip" value="#{employeeView.employee.address.zip}"
+						title="Employee Zip" />
+
 					<p:commandButton rendered="#{!employeeView.viewMode}" style="width:100px" value="Save"
 						update="growl, search_result_table" action="#{employeeView.saveEmployee}" />
 
-					<p:commandButton style="width:100px" value="Cancel" update="growl, search_result_table"
-						onclick="PF('dlg-employee-details').hide()" process="@none" />
+					<p:commandButton rendered="#{!employeeView.viewMode}" style="width:100px" value="Cancel"
+						update="growl, search_result_table" onclick="PF('dlg-employee-details').hide()" process="@none" />
+
+					<p:commandButton rendered="#{employeeView.viewMode}" style="width:100px" value="Close"
+						update="growl, search_result_table" onclick="PF('dlg-employee-details').hide()" process="@none" />
 
 					<p:commandButton rendered="#{employeeView.viewMode}" style="width:100px" value="Edit" update="pnl-employee-details"
 						action="#{employeeView.makeDetailsEditableActionListener}" />
