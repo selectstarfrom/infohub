@@ -1,4 +1,4 @@
-package com.demo.infohub.serviceapi.api;
+package com.demo.infohub.serviceapi.constants;
 
 import java.util.Arrays;
 import java.util.List;

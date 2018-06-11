@@ -15,28 +15,34 @@
 
 					<h:outputLabel for="new_name" value="Name:" />
 					<p:inputText disabled="#{employeeView.viewMode}" id="new_name" value="#{employeeView.employee.name}"
-						title="Employee Name" />
+						title="Employee Name" required="true"
+						requiredMessage="Please enter the Full Name"/>
 
 					<h:outputLabel for="new_email" value="Email" />
-					<p:inputText disabled="#{employeeView.viewMode}" id="new_email" value="#{employeeView.employee.email}"
+					<p:inputText disabled="#{employeeView.viewMode}" id="new_email" value="#{employeeView.employee.email}" required="true"
 						title="Employee Email" requiredMessage="Please enter your email address." validatorMessage="Invalid email format">
 						<f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
 					</p:inputText>
 
 					<h:outputLabel for="new_mobile" value="Mobile:" />
 					<p:inputText disabled="#{employeeView.viewMode}" id="new_mobile" value="#{employeeView.employee.mobile}"
-						title="Employee Mobile No." />
+						title="Employee Mobile No."
+						required="true"
+						requiredMessage="Please enter the Mobile Number"/>
 
 					<h:outputLabel for="new_nationality" value="Nationality" />
 					<p:selectOneMenu disabled="#{employeeView.viewMode}" id="new_nationality"
 						value="#{employeeView.employee.nationality}" panelStyle="width:180px" effect="fade" filter="true"
-						filterMatchMode="startsWith" title="Employee Nationality">
+						filterMatchMode="startsWith" title="Employee Nationality"
+						required="true"
+						requiredMessage="Please select the Nationality">
 						<f:selectItems value="#{employeeView.nations}" />
 					</p:selectOneMenu>
 
 					<h:outputLabel for="new_address" value="Address:" />
 					<p:inputText disabled="#{employeeView.viewMode}" id="new_address" value="#{employeeView.employee.address.address}"
-						title="Employee Address" />
+						title="Employee Address" required="true"
+						requiredMessage="Please enter the Address"/>
 
 					<h:outputLabel for="new_city" value="City:" />
 					<p:inputText disabled="#{employeeView.viewMode}" id="new_city" value="#{employeeView.employee.address.city}"
@@ -52,7 +58,19 @@
 
 					<h:outputLabel for="new_zip" value="Zip:" />
 					<p:inputText disabled="#{employeeView.viewMode}" id="new_zip" value="#{employeeView.employee.address.zip}"
-						title="Employee Zip" />
+						title="Employee Zip"
+						required="true"
+						requiredMessage="Please enter the Zip"/>
+
+					<h:outputLabel for="new_pass" value="Password:" />
+					<p:password disabled="#{employeeView.viewMode}" id="new_pass" value="#{employeeView.employee.password}"
+						title="Employee Password. Keep blank for default password 'pass123'" feedback="true" required="true"
+						requiredMessage="Please enter the Password" match="new_pass_rpt" label="Password"/>
+
+					<h:outputLabel for="new_pass_rpt" value="Repeat Password:" />
+					<p:password disabled="#{employeeView.viewMode}" id="new_pass_rpt" value="#{employeeView.repeatPassword}"
+						title="Employee Password. Keep blank for default password 'pass123'"  required="true"
+						requiredMessage="Please enter the Password" label="Repeat Password"/>
 
 					<p:commandButton rendered="#{!employeeView.viewMode}" style="width:100px" value="Save"
 						update="growl, search_result_table" action="#{employeeView.saveEmployee}" />

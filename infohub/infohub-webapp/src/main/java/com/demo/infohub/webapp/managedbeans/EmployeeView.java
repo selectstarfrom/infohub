@@ -8,10 +8,9 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
 import org.primefaces.PrimeFaces;
-import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.demo.infohub.serviceapi.api.NationalityList;
+import com.demo.infohub.serviceapi.constants.NationalityList;
 import com.demo.infohub.serviceapi.dto.AddressDTO;
 import com.demo.infohub.serviceapi.dto.EmployeeDTO;
 import com.demo.infohub.serviceimpl.services.EmployeeServiceImpl;
@@ -24,6 +23,7 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 	private static final long serialVersionUID = 8816016836035127826L;
 
 	private boolean viewMode = true;
+	private String repeatPassword;
 	private String searchName;
 	private List<String> searchNationalities;
 	private EmployeeDTO employee;
@@ -44,6 +44,7 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 	private EmployeeDTO newEmployeeInstance() {
 		EmployeeDTO lEmployeeDTO = new EmployeeDTO();
 		lEmployeeDTO.setAddress(new AddressDTO());
+		setRepeatPassword("");
 		return lEmployeeDTO;
 	}
 
@@ -96,6 +97,8 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 	public void showNewEmployeeActionListener() {
 		this.employee = newEmployeeInstance();
 		setViewMode(false);
+		PrimeFaces pf = PrimeFaces.current();
+		pf.executeScript("PF('dlg-employee-details').show();");
 	}
 
 	public void showViewEmployeeActionListener(Long pEmployeeId) {
@@ -171,6 +174,14 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 
 	public void setViewMode(boolean viewMode) {
 		this.viewMode = viewMode;
+	}
+
+	public String getRepeatPassword() {
+		return repeatPassword;
+	}
+
+	public void setRepeatPassword(String repeatPassword) {
+		this.repeatPassword = repeatPassword;
 	}
 
 }

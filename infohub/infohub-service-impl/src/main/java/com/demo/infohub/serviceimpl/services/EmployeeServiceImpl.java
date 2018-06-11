@@ -1,9 +1,6 @@
 package com.demo.infohub.serviceimpl.services;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import com.demo.infohub.dao.IEmployeeRepository;
 import com.demo.infohub.models.Address;
 import com.demo.infohub.models.Employee;
 import com.demo.infohub.serviceapi.api.IEmployeeService;
+import com.demo.infohub.serviceapi.constants.Constants;
 import com.demo.infohub.serviceapi.dto.AddressDTO;
 import com.demo.infohub.serviceapi.dto.EmployeeDTO;
 
@@ -30,6 +29,10 @@ public class EmployeeServiceImpl implements IEmployeeService {
 	@Transactional(propagation = Propagation.REQUIRED, readOnly = false)
 	public EmployeeDTO saveEmployee(EmployeeDTO pEmployeeDTO) {
 
+		String lPassword = pEmployeeDTO.getPassword();
+		if (StringUtils.isEmpty(lPassword)) {
+			lPassword = Constants.DEFAULT_PASSWORD;
+		}
 		Employee lTargetEmployee = copyToEntity(pEmployeeDTO);
 
 		lTargetEmployee = employeeRepository.save(lTargetEmployee);

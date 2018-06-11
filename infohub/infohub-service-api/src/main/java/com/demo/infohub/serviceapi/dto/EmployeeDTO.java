@@ -10,7 +10,7 @@ public class EmployeeDTO {
 
 	private String mobile;
 
-	private String password = "PASS";
+	private String password = "";
 
 	private String email;
 
