@@ -127,7 +127,6 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 		setViewMode(true);
 		EmployeeDTO lById = employeeService.getEmployeeById(pEmployeeId);
 		setEmployee(lById);
-		setViewMode(true);
 		PrimeFaces pf = PrimeFaces.current();
 		pf.executeScript("PF('dlg-delete-employee').show();");
 	}
