@@ -89,8 +89,7 @@ InfoHub is a simple Web application to demonstrate basic crud operations using J
       
 # Can be enhanced with:
 	Spring security.
-	Logging.
-	Responsive UI.
+	Logging.	
 	Message properties and i18.
 	JUnit.
 	More validations.
