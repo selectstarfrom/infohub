@@ -12,8 +12,8 @@ InfoHub is a simple Web application to demonstrate basic crud operations using J
 
 # User Types:
 	2 type of users:
-    Admin
-	  User
+   	Admin
+	User
 
   # Admin has the following rights:
 		-Add new Employee
@@ -71,7 +71,10 @@ InfoHub is a simple Web application to demonstrate basic crud operations using J
 			  for JAR file: mvn clean install -DskipTests -Pjar
 		  Once the build is success. go to the folder "infohub-webapp/target" inside the project.
 
-		  run the command java -jar infohub.jar or java -jar infohub.war
+		  Run the command:
+		  	-java -jar infohub.jar
+				or
+			-java -jar infohub.war
 		
 		  Open the browser: http://localhost:8080/infohub/
 		
@@ -88,8 +91,10 @@ InfoHub is a simple Web application to demonstrate basic crud operations using J
 	Spring security.
 	Logging.
 	Responsive UI.
-	message properties and i18.
+	Message properties and i18.
 	JUnit.
+	More validations.
+	Exception handling.
   
   Thanks & Regards,
   Syed
