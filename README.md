@@ -71,7 +71,7 @@ InfoHub is a simple Web application to demonstrate basic crud operations using J
 			  for JAR file: mvn clean install -DskipTests -Pjar
 		  Once the build is success. go to the folder "infohub-webapp/target" inside the project.
 
-		  run the command java -jar infohub-1.0.0.jar or java -jar infohub-1.0.0.war
+		  run the command java -jar infohub.jar or java -jar infohub.war
 		
 		  Open the browser: http://localhost:8080/infohub/
 		
@@ -82,7 +82,7 @@ InfoHub is a simple Web application to demonstrate basic crud operations using J
 
 # Executable
   You can download the war file and run as below
-      >> java -jar infohub-1.0.0.war
+      >> java -jar infohub.war
       
 # Can be enhanced with:
 	Spring security.
