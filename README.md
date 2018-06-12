@@ -1,4 +1,4 @@
-# infohub
+
 
 InfoHub is a simple Web application to demonstrate basic crud operations using Java/JSF/Primefaces/Spring/Hibernate/JPA/H2/Maven.
 
@@ -70,7 +70,8 @@ InfoHub is a simple Web application to demonstrate basic crud operations using J
 			  for WAR file: mvn clean install -DskipTests -Pwar
 			  for JAR file: mvn clean install -DskipTests -Pjar
 		  Once the build is success. go to the folder "infohub-webapp/target" inside the project.
-		  run the command java -jar infohub-1.0.0.jar
+
+		  run the command java -jar infohub-1.0.0.jar or java -jar infohub-1.0.0.war
 		
 		  Open the browser: http://localhost:8080/infohub/
 		
@@ -78,6 +79,11 @@ InfoHub is a simple Web application to demonstrate basic crud operations using J
 		
 		  Note: on the startup, H2 in memory database will be populated with 15 users for demo purpose.
 
+
+# Executable
+  You can download the war file and run as below
+      >> java -jar infohub-1.0.0.war
+      
 # Can be enhanced with:
 	Spring security.
 	Logging.

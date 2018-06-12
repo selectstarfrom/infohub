@@ -149,6 +149,16 @@ public abstract class AbstractBaseBean implements Serializable {
 
 		return false;
 	}
+	
+	public String getLoggedInUserFullName() {
+
+		Object lValueFromSession = getValueFromSession(Constants.LOGGED_IN_USER);
+
+		if (lValueFromSession!=null)
+			return ((EmployeeDTO)lValueFromSession).getName();
+
+		return "";
+	}
 
 	protected void redirect(String pUrl) {
 		String url = getExternalContext()
