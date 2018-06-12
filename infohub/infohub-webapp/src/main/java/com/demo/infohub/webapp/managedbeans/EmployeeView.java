@@ -27,7 +27,7 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 	private static final long serialVersionUID = 8816016836035127826L;
 
 	private boolean admin = false;
-
+	private String loggedInUser = "";
 	private boolean viewMode = true;
 	private String repeatPassword;
 	private String searchName;
@@ -44,6 +44,9 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 		if (!isAuthenticated()) {
 			redirect("/views/index.xhtml");
 		}
+
+		setLoggedInUser(getLoggedInUserFullName());
+
 		if (hasAdminRights()) {
 			setAdmin(true);
 		} else {
@@ -203,6 +206,14 @@ public class EmployeeView extends AbstractBaseBean implements Serializable {
 
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
+	}
+
+	public String getLoggedInUser() {
+		return loggedInUser;
+	}
+
+	public void setLoggedInUser(String loggedInUser) {
+		this.loggedInUser = loggedInUser;
 	}
 
 }

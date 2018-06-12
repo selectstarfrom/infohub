@@ -25,6 +25,8 @@ public class IndexPageView extends AbstractBaseBean implements Serializable {
 
 	private static final long serialVersionUID = -4607567529855886049L;
 
+	private boolean loggedIn = false;
+
 	private String username = "admin";
 
 	private String password;
@@ -35,6 +37,11 @@ public class IndexPageView extends AbstractBaseBean implements Serializable {
 	@PostConstruct
 	public void init() {
 		super.init();
+		if (isAuthenticated()) {
+			setLoggedIn(true);
+		} else {
+			setLoggedIn(false);
+		}
 	}
 
 	public String getUsername() {
@@ -86,4 +93,13 @@ public class IndexPageView extends AbstractBaseBean implements Serializable {
 		FacesContext.getCurrentInstance().addMessage(null, message);
 		PrimeFaces.current().ajax().addCallbackParam("loggedIn", loggedIn);
 	}
+
+	public boolean isLoggedIn() {
+		return loggedIn;
+	}
+
+	public void setLoggedIn(boolean loggedIn) {
+		this.loggedIn = loggedIn;
+	}
+
 }
