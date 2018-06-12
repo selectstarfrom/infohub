@@ -1,6 +1,6 @@
 
 
-InfoHub is a simple Web application to demonstrate basic crud operations using Java/JSF/Primefaces/Spring/Hibernate/JPA/H2/Maven.
+InfoHub is a simple Web application to demonstrate basic crud operations using Java/JSF/Primefaces/Spring/Spring-Boot/Hibernate/JPA/H2/Maven.
 
 # Features:
 	Login.
